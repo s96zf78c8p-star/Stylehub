@@ -86,3 +86,58 @@ function seleziona(cat, url) {
 
 // 6. Esegue la funzione una volta all'avvio per popolare il primo menu
 aggiornaSottoCategorie();
+function aggiungiCapo() {
+  const catMain = document.getElementById('categoria-main').value;
+  const catSotto = document.getElementById('sotto-categoria').value;
+  const nome = document.getElementById('nome-capo').value;
+  const urlInput = document.getElementById('url-immagine').value;
+  const fileInput = document.getElementById('input-file');
+
+  // Gestione della foto: o link o file dalla galleria
+  if (fileInput.files && fileInput.files[0]) {
+    // Se c'è un file caricato, lo leggiamo
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+      const urlImmagine = e.target.result; // Questo è il "link" della tua foto locale
+      creaCardInArmadio(catMain, catSotto, nome, urlImmagine);
+    };
+    
+    reader.readAsDataURL(fileInput.files[0]);
+    fileInput.value = ""; // Svuota l'input
+  } else if (urlInput) {
+    // Se non c'è un file ma c'è un link
+    creaCardInArmadio(catMain, catSotto, nome, urlInput);
+    document.getElementById('url-immagine').value = "";
+  } else {
+    alert("Per favore, inserisci un link o carica una foto dalla galleria!");
+  }
+}
+
+// Funzione di supporto per creare la card (così non ripetiamo codice)
+function creaCardInArmadio(catMain, catSotto, nome, url) {
+  let idSezione = `sezione-${catSotto}`;
+  let containerSezione = document.getElementById(idSezione);
+  
+  if (!containerSezione) {
+    const mainArmadio = document.getElementById('armadio');
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+      <h3 class="sezione-titolo">${catSotto.toUpperCase().replace(/-/g, " ")}</h3>
+      <div class="items-grid" id="${idSezione}"></div>
+    `;
+    mainArmadio.appendChild(wrapper);
+    containerSezione = document.getElementById(idSezione);
+  }
+
+  const \div = document.createElement('div');
+  div.className = 'capo-card';
+  div.style.textAlign = "center";
+  div.innerHTML = `
+    <img src="${url}" onclick="seleziona('${catMain}', '${url}')" 
+         style="width: 100px; height: 100px; object-fit: contain; border-radius: 12px; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer;">
+    <p style="font-size: 10px; margin-top: 5px;">${nome}</p>
+  `;
+  containerSezione.appendChild(div);
+  document.getElementById('nome-capo').value = "";
+}
