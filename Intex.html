@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleHub Pro</title>
+    
+    <!-- Istruzioni per farla diventare un'app -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3534/3534312.png">
+
+    <!-- Colleghiamo il file CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app-container">
+  <header>
+    <h1>StyleHub Pro 👗</h1>
+  </header>
+
+  <section id="upload-section">
+    <h3>Aggiungi un nuovo capo</h3>
+    <div class="input-group">
+      <select id="categoria-main" onchange="aggiornaSottoCategorie()">
+        <option value="sopra">Sopra</option>
+        <option value="sotto">Sotto</option>
+        <option value="scarpe">Scarpe</option>
+      </select>
+      
+      <select id="sotto-categoria"></select>
+    </div>
+
+    <input type="text" id="nome-capo" placeholder="Nome capo (es. Blazer Nero)">
+    <input type="text" id="url-immagine" placeholder="Link immagine (.jpg, .png)">
+    <button onclick="aggiungiCapo()">Inserisci nell'Armadio</button>
+  </section>
+
+  <main id="armadio">
+    <!-- Qui appariranno le categorie create dal JS -->
+  </main>
+
+  <section id="outfit-builder">
+    <h2>Il tuo Outfit</h2>
+    <div id="preview-container">
+      <div id="preview-sopra" class="slot">Sopra</div>
+      <div id="preview-sotto" class="slot">Sotto</div>
+      <div id="preview-scarpe" class="slot">Scarpe</div>
+    </div>
+  </section>
+</div>
+
+<!-- Colleghiamo il file JavaScript alla fine, così la pagina carica più velocemente -->
+<script src="script.js"></script>
+
+</body>
+</html>
