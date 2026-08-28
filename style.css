@@ -137,3 +137,9 @@ button:active {
     height: 100%;
     object-fit: contain;
 }
+input[type="file"] {
+    background: #fff;
+    border: 2px dashed #b5838d;
+    padding: 10px;
+    cursor: pointer;
+}
